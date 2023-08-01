@@ -1,11 +1,19 @@
-import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Text, View } from 'react-native';
+import { StatusBar } from "expo-status-bar";
+import { StyleSheet, Text, View, Button } from "react-native";
+import { RSA } from "react-native-rsa-native";
+import * as Device from "expo-device";
 
 export default function App() {
+  const onClick = async () => {
+    const keys = await RSA.generateKeys(2048);
+    console.log(Device.osName);
+    console.log("Private: \n", keys.private);
+    console.log("Public: \n", keys.public);
+  };
+
   return (
     <View style={styles.container}>
-      <Text>Open up App.tsx to start working on your app!</Text>
-      <StatusBar style="auto" />
+      <Button title="Press me" color={"blue"} onPress={onClick} />
     </View>
   );
 }
@@ -13,8 +21,8 @@ export default function App() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
+    backgroundColor: "#fff",
+    alignItems: "center",
+    justifyContent: "center",
   },
 });
